@@ -6,18 +6,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-process-points-and-surfaces-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-process-points-and-surfaces-{{ version }}.tar.gz
   sha256: ac0fc58002e9c5a3c8ea11364bf084c1cd7549c02fd62bbdb54d6b8262801da6
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8,<3.11
+    - python {{ python_min }}
   run:
     - imageio !=2.22.1
     - napari
@@ -28,7 +28,7 @@ requirements:
     - napari-workflows >=0.2.3
     - numpy
     - pandas
-    - python >=3.8,<3.11
+    - python >={{ python_min }},<3.11
     - stackview >=0.5.2
     - vedo >=2022.4.1
 
@@ -40,6 +40,7 @@ test:
     # - pip check # Fails on windows due to vtk not being found by the pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/haesleinhuepf/napari-process-points-and-surfaces
